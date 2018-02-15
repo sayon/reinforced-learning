@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="/home/sayon/pandoc-styles/github.css">
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h2 id="reinforcement-learning">Reinforcement learning</h2>
+<h1 id="branches-of-machine-learning">Branches of machine learning</h1>
+<h2 id="supervised">Supervised</h2>
+<p>Classification, regression</p>
+<h2 id="unsupervised">Unsupervised</h2>
+<p>Clustering, dimensionality reduction, recommendation</p>
+<h2 id="reinforcement-learning-1">Reinforcement learning</h2>
+<p>Reward maximization.</p>
+<h1 id="supervised-learning">Supervised learning</h1>
+<p>Labeled examples.</p>
+<p><span class="math inline">\(Y = f(X)\)</span></p>
+<h2 id="regression">Regression</h2>
+<p>Predicts a continuous target variable <span class="math inline">\(Y\)</span>.</p>
+<h3 id="linear-regression">Linear regression</h3>
+<p><span class="math inline">\(y&#39; = \beta_0 + \beta_1 x + \epsilon\)</span></p>
+<p><span class="math inline">\(\beta_0\)</span>, <span class="math inline">\(\beta_1\)</span> are <strong>model parameters</strong>.</p>
+<p>To find best values for them:</p>
+<ol type="1">
+<li>Define a <strong>cost function</strong></li>
+<li>Find the parameters that <strong>minimize loss</strong></li>
+</ol>
+<p>The cost function:</p>
+<p><span class="math inline">\(Cost = \frac 1 n \sum^n_i \bigg( y&#39; - (\beta_0 + \beta_1 x)\bigg)^2\)</span></p>
+<blockquote>
+<p>If divided by <span class="math inline">\(2n\)</span>, the fraction disappears in the derivative</p>
+</blockquote>
+<h3 id="gradient-descent">Gradient descent</h3>
+<figure>
+<img src="assets/gradient-descent-20180211213808632.png" />
+</figure>
+<p>Keep descending in the directions based on partial derivatives’ values.</p>
+<h3 id="battling-overfitting">Battling overfitting</h3>
+<ul>
+<li>More data</li>
+<li><strong>Regularisation</strong> Add penalty to the cost function.</li>
+</ul>
+<p><span class="math inline">\(Cost = \frac 1 n \sum^n_i \bigg( y&#39; - (\beta_0 + \beta_1 x)\bigg)^2 + \lambda \sum_{i=0}^1 \beta_i^2\)</span></p>
+<p><span class="math inline">\(\lambda\)</span> is a hyper-parameter, tunes how harsh large beta coefficients penalize the overfitting.</p>
+<p><strong>Crossvalidation</strong> helps selecting <span class="math inline">\(\lambda\)</span> value (train on a part of the dataset, check on the rest).</p>
+<h3 id="logistic-regression">Logistic regression</h3>
+<p>Use sigmoid function</p>
+<p><span class="math display">\[S(x) = \frac 1 {1+e^{-x}}\]</span></p>
+<p>Composition:</p>
+<p><span class="math display">\[P(Y=1) = \frac 1 {1+e^{-(\beta_0+\beta_1 x}}\]</span></p>
+<p>Cost function explained <a href="http://www.holehouse.org/mlclass/06_Logistic_Regression.html">here</a></p>
+<h3 id="support-vector-machines">Support Vector Machines</h3>
+<p>Draw a line between sets; chose parameters to maximize the line width.</p>
+<h1 id="unsupervised-learning">Unsupervised learning</h1>
+<p>TODO</p>
+<h1 id="neural-networks">Neural networks</h1>
+<p>Approximate any function with a single hidden layer.</p>
+<figure>
+<img src="/home/sayon/repos/reinforced-learning/notes/assets/neural-network-general_20180212_162148.png" />
+</figure>
+<p>Each level is responsible for increasingly more abstract features.</p>
+<h1 id="reinforcement-learning-overview">Reinforcement learning: overview</h1>
+<figure>
+<img src="/home/sayon/repos/reinforced-learning/notes/assets/reinforcement-general_20180212_142809.png" />
+</figure>
+<p>Main dilemma: trade-off between <em>exploration</em> and <em>exploitation</em></p>
+<blockquote>
+<p>To obtain a lot of reward, a reinforcement learning agent must prefer actions that it has tried in the past and found to be effective in producing reward. But to discover such actions, it has to try actions that it has not selected before. The agent has to exploit what it has already experienced in order to obtain reward, but it also has to explore in order to make better action selections in the future.</p>
+</blockquote>
+<p>Main components:</p>
+<ul>
+<li><strong>Policy</strong> (how to behave) states <span class="math inline">\(\mapsto\)</span> actions</li>
+<li><strong>Reward signal</strong> is an immediate profit</li>
+<li><strong>Value function</strong> defines the profit in the long run.</li>
+<li><strong>Model environment</strong> mimics the environment – to plan what are we doing next.</li>
+</ul>
+<p>E.g. make optimal moves, sometimes make exploratory random ones.</p>
+<p><strong>Evolutionary methods</strong>: each game is evaluated as a whole.</p>
+<p><strong>Value function methods</strong>: individual states are evaluated.</p>
+<p>Bandit problems = only a single state.</p>
+<h2 id="prerequisite-markov-decision-processes">Prerequisite: Markov decision processes</h2>
+<ul>
+<li>Like a FSM, but with probabilities of transitions.</li>
+<li>Each transition has a reward.</li>
+<li>A discount factor <span class="math inline">\(\gamma\)</span> – difference between immediate and future rewards.</li>
+</ul>
+<p><span class="math inline">\(\text{present reward} = \gamma ^{\text{number of steps till reward}} \times \text{future reward}\)</span></p>
+<p>TODO read in-depth about Markov decision processes?</p>
+<p>Maximize:</p>
+<p><span class="math display">\[ \sum^{t=\infty}_{t=0} \gamma^t r\bigg( x(t), a(t) \bigg)\]</span></p>
+<p>where</p>
+<ul>
+<li><span class="math inline">\(t\)</span> - steps</li>
+<li><span class="math inline">\(r(x,a)\)</span> is a reward for step <span class="math inline">\(x\)</span> and action <span class="math inline">\(a\)</span>.</li>
+</ul>
+<h2 id="q-learning">Q-learning</h2>
+<p>Learn <strong>action-value function</strong> – gives us the <strong>expected reward</strong> of an action <span class="math inline">\(a\)</span> at a state <span class="math inline">\(s\)</span> (including all possible rewards in the future).</p>
+<p>Approximated iteratively.</p>
+<p><span class="math display">\[Q(s_t, a_t) = Q(s_{t-1}, a_{t-1}) + \alpha \times ( r_t + \gamma \max Q(s_{t+1}, a) - Q(s_t, a_t))\]</span></p>
+<h2 id="policy-learning">Policy learning</h2>
+<p>Learn <strong>policy function</strong> <span class="math inline">\(\Pi\)</span> , state <span class="math inline">\(\mapsto\)</span> best action.</p>
+<p><span class="math display">\[a = \Pi(s)\]</span></p>
+<p>Use deep neural networks.</p>
+<figure>
+<img src="/home/sayon/repos/reinforced-learning/notes/assets/reinforcement-neural_20180212_161429.png" />
+</figure>
+<h2 id="deep-q-networks">Deep Q-networks</h2>
+<p>Approximate Q-functions using deep neural networks</p>
+<ul>
+<li><strong>Experience replay</strong>, randomizing over a longer sequence of previous observations and corresponding reward to avoid overfitting to recent experiences.</li>
+</ul>
+<p>This idea is inspired by biological brains: rats traversing mazes, for example, “replay” patterns of neural activity during sleep in order to optimize future behavior in the maze.</p>
+<ul>
+<li><strong>Recurrent neural networks</strong> (RNNs) augmenting DQNs.</li>
+</ul>
+<p>When an agent can only see its immediate surroundings (e.g. robot-mouse only seeing a certain segment of the maze vs. a birds-eye view of the whole maze), the agent needs to remember the bigger picture so it remembers where things are. This is similar to how humans babies develop object permanence to know things exist even if they leave the baby’s visual field. RNNs are “recurrent”, i.e. they allow information to persist on a longer-term basis.</p>
+</body>
+</html>

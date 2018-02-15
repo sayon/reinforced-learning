@@ -116,7 +116,24 @@ Main dilemma: trade-off between *exploration* and *exploitation*
 > obtain reward, but it also has to explore in order to make better action
 > selections in the future.
 
-## Markov decision processes
+Main components:
+
+* **Policy** (how to behave) states $\mapsto$ actions
+* **Reward signal** is an immediate profit 
+* **Value function** defines the profit in the long run.
+* **Model environment** mimics the environment -- to plan what are we doing next.
+
+E.g. make optimal moves, sometimes make exploratory random ones.
+
+**Evolutionary methods**: each game is evaluated as a whole.
+
+**Value function methods**: individual states are evaluated.
+
+Bandit problems = only a single state. 
+
+
+
+## Prerequisite: Markov decision processes
 
 * Like a FSM, but with probabilities of transitions.
 * Each transition has a reward.
@@ -179,9 +196,5 @@ Approximate Q-functions using deep neural networks
   the agent needs to remember the bigger picture so it remembers where things are.
   This is similar to how humans babies develop object permanence to know things
   exist even if they leave the baby’s visual field. RNNs are “recurrent”, i.e.
-  they allow information to persist on a longer-term basis. Here’s an impressive
-  video of a deep recurrent Q-network (DQRN) playing Doom.
-
-
-
+  they allow information to persist on a longer-term basis. 
 
